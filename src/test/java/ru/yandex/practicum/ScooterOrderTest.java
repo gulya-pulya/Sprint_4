@@ -1,5 +1,6 @@
 package ru.yandex.practicum;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -14,6 +15,8 @@ import ru.yandex.practicum.pageobject.TrackPage;
 
 @RunWith(Parameterized.class)
 public class ScooterOrderTest {
+
+    private final WebDriver driver = new SafariDriver();
 
     private boolean topButton;
     private String name;
@@ -49,11 +52,11 @@ public class ScooterOrderTest {
 
     @Test
     public void testScooterOrder() throws InterruptedException {
-        WebDriver driver = new SafariDriver();
         driver.get("https://qa-scooter.praktikum-services.ru");
         driver.manage().window().fullscreen();
 
         MainPage mainPage = new MainPage(driver);
+        mainPage.clickCookieButton();
         if (topButton) {
             mainPage.clickToOrderButton();
         } else {
@@ -65,30 +68,25 @@ public class ScooterOrderTest {
         orderCustomerInfoPage.waitPageLoad();
         orderCustomerInfoPage.fillCustomerInfoPage(name, surname, address, metroIndex, telephone);
 
-        Thread.sleep(500);
-
         OrderScooterPage orderScooterPage = new OrderScooterPage(driver);
         orderScooterPage.waitPageLoad();
         orderScooterPage.fillScooterInfoPage(dateDelivery, rentPeriodIndex, scooterColorBlack, comments);
-
-        Thread.sleep(500);
 
         OrderConfirmPage orderConfirmPage = new OrderConfirmPage(driver);
         orderConfirmPage.waitPageLoad();
         orderConfirmPage.clickConfirmedPage();
 
-        Thread.sleep(500);
-
         OrderConfirmedPage orderConfirmedPage = new OrderConfirmedPage(driver);
         orderConfirmedPage.waitPageLoad();
         orderConfirmedPage.clickSeeStatusButton();
 
-        Thread.sleep(500);
-
         TrackPage trackPage = new TrackPage(driver);
         trackPage.waitPageLoad();
         trackPage.checkOrderInfo(name, surname, address, telephone, comments);
+    }
 
-        driver.quit();
+    @After
+    public void teardown() {
+        driver.quit(); // Закрыть браузер
     }
 }
