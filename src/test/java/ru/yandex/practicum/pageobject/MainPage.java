@@ -1,6 +1,5 @@
 package ru.yandex.practicum.pageobject;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,7 +23,7 @@ public class MainPage {
 
     public By mainQuestions = By.className("accordion__heading");
 
-    public By mainQuestionsValue = By.className("accordion__panel");
+    public By mainAnswers = By.cssSelector(".accordion__panel > p");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -60,13 +59,7 @@ public class MainPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
     }
 
-    public void checkOnlyOneMainQuestionActive() {
-        int visibleQuestions = 0;
-        List<WebElement> elements = driver.findElements(mainQuestionsValue);
-        for (WebElement element : elements) {
-            if (element.isDisplayed()) visibleQuestions += 1;
-        }
-
-        Assert.assertEquals(1, visibleQuestions);
+    public List<WebElement> getMainAnswers() {
+        return driver.findElements(mainAnswers);
     }
 }

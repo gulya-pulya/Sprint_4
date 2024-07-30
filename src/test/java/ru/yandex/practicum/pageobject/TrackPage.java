@@ -10,11 +10,11 @@ public class TrackPage {
 
     private final WebDriver driver;
 
-    private By name = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[1]/div[2]");
-    private By surname = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[2]/div[2]");
-    private By address = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[3]/div[2]");
-    private By telephone = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[5]/div[2]");
-    private By comments = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[11]/div[2]");
+    private By name = By.xpath("//div[@class='Track_Title__1XfhB'][contains(text(), 'Имя')]/following-sibling::div[@class='Track_Value__15eEX']");
+    private By surname = By.xpath("//div[@class='Track_Title__1XfhB'][contains(text(), 'Фамилия')]/following-sibling::div[@class='Track_Value__15eEX']");
+    private By address = By.xpath("//div[@class='Track_Title__1XfhB'][contains(text(), 'Адрес')]/following-sibling::div[@class='Track_Value__15eEX']");
+    private By telephone = By.xpath("//div[@class='Track_Title__1XfhB'][contains(text(), 'Телефон')]/following-sibling::div[@class='Track_Value__15eEX']");
+    private By comments = By.xpath("//div[@class='Track_Title__1XfhB'][contains(text(), 'Комментарий')]/following-sibling::div[@class='Track_Value__15eEX']");
 
     public TrackPage(WebDriver driver) {
         this.driver = driver;
